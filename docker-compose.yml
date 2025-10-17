@@ -2,10 +2,12 @@ services:
   postgres:
     image: postgres:17
     environment:
-      POSTGRES_USER: scheduler_user
-      POSTGRES_PASSWORD: scheduler_password
-      POSTGRES_DB: scheduler_db
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    networks:
+      - postgres_event_scheduler
+networks:
+  postgres_event_scheduler:
