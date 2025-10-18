@@ -1,7 +1,25 @@
 import { FastifyInstance, FastifyServerOptions, fastify } from "fastify";
 
 type Fastify = typeof fastify;
+declare module "fastify" {
+  interface FastifyRequest {
+    user: {
+      id: string;
+      email: string;
+    };
+  }
+}
+// Schemas
+import { userSchemas } from "./schemas/auth.js";
 
+//  Register all the schemas
+function registerSchemas(app: FastifyInstance) {
+  for (const schema of [...userSchemas]) {
+    app.addSchema(schema);
+  }
+}
+
+// Create the Fastify server app
 async function createServerApp(fastify: Fastify, opts: FastifyServerOptions) {
   const app: FastifyInstance = fastify(opts);
   app.register(import("./app.js")).ready((err) => {
@@ -13,6 +31,7 @@ async function createServerApp(fastify: Fastify, opts: FastifyServerOptions) {
 }
 
 const app = await createServerApp(fastify, {});
+registerSchemas(app);
 
 const port = process.env.SERVER_PORT || 8000;
 const host = process.env.SERVER_HOST || "localhost";
