@@ -1,9 +1,9 @@
 import { FastifyPluginAsync } from "fastify";
 import argon2 from "argon2";
 
-import { users } from "src/db/schema.js";
-import { db } from "src/db/index.js";
-import { $ref, CreateUserInput, LoginUserInput } from "src/schemas/auth.js";
+import { users } from "@/db/schema";
+import { db } from "@/db";
+import { $ref, CreateUserInput, LoginUserInput } from "@/schemas/auth";
 import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 

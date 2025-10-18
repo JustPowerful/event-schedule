@@ -10,11 +10,12 @@ declare module "fastify" {
   }
 }
 // Schemas
-import { userSchemas } from "./schemas/auth.js";
+import { userSchemas } from "@/schemas/auth";
+import { eventSchemas } from "@/schemas/event";
 
 //  Register all the schemas
 function registerSchemas(app: FastifyInstance) {
-  for (const schema of [...userSchemas]) {
+  for (const schema of [...userSchemas, ...eventSchemas]) {
     app.addSchema(schema);
   }
 }

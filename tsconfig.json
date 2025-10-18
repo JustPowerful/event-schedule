@@ -1,20 +1,19 @@
 {
-  "extends": "fastify-tsconfig",
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "dist",
-    "sourceMap": false,
-    "baseUrl": ".",
-    "noImplicitThis": false,
-    "declaration": true,
-    "declarationMap": true,
-    "allowJs": true
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
-  "ts-node": {
-    "esm": true,
-    "transpileOnly": true,
-    "experimentalSpecifierResolution": "node"
-  },
-  "exclude": ["node_modules"],
-  "include": ["src/**/*.ts"]
+  "include": ["src"]
 }

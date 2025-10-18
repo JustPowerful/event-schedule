@@ -18,7 +18,7 @@ export async function authMiddleware(
       .status(401)
       .send({ success: false, message: "Invalid authorization header format" });
   }
-  const tokenType = fullToken.split(" ")[1];
+  const tokenType = fullToken.split(" ")[0];
   const token = fullToken.split(" ")[1];
   if (tokenType !== "Bearer") {
     return reply
