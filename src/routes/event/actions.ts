@@ -233,7 +233,7 @@ const eventRoutes: FastifyPluginAsync = async (fastify) => {
               startTime,
               endTime,
               authorId: request.user.id,
-              recurringEvent: parentEvent.id,
+              recurringEventId: parentEvent.id,
             }))
           )
           .returning();
@@ -353,6 +353,11 @@ const eventRoutes: FastifyPluginAsync = async (fastify) => {
             gte(event.date, new Date().toISOString().split("T")[0])
           )
         );
+      return reply.status(200).send({
+        success: true,
+        message: "Recurring event and its instances updated successfully",
+        recurringEvent: updatedParentEvent,
+      });
     }
   );
 
