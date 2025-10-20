@@ -8,6 +8,34 @@
       "when": 1760815979690,
       "tag": "0000_omniscient_stature",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1760916761092,
+      "tag": "0001_shiny_meltdown",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1760916829632,
+      "tag": "0002_faithful_silk_fever",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1760917962964,
+      "tag": "0003_clammy_nehzno",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1760949581981,
+      "tag": "0004_easy_the_hood",
+      "breakpoints": true
     }
   ]
 }

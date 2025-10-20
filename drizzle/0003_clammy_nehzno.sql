@@ -1,0 +1,1 @@
+ALTER TABLE "recurring_events" DROP COLUMN "end_date";

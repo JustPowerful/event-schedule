@@ -1,0 +1,1 @@
+ALTER TABLE "events" ADD COLUMN "recurring_event_id" uuid;
