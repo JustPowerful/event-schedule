@@ -4,6 +4,7 @@ import { event, recurringEvent } from "@/db/schema";
 import {
   $ref,
   CreateEventInput,
+  DeleteEventInput,
   ListEventsInput,
   UpdateEventInput,
   UpdateRecurringEventInput,
@@ -361,94 +362,10 @@ const eventRoutes: FastifyPluginAsync = async (fastify) => {
     }
   );
 
-  //   Body: UpdateEventInput;
-  // }>(
-  //   "/update",
-  //   {
-  //     schema: {
-  //       body: $ref("updateEventSchema"),
-  //     },
-  //     preHandler: [authMiddleware],
-  //   },
-  //   async (request, reply) => {
-  //     try {
-  //       const { id, title, description, date, startTime, endTime } =
-  //         request.body;
-
-  //       // Fetch the old event data
-  //       const oldEvent = await db.select().from(event).where(eq(event.id, id));
-  //       if (oldEvent.length === 0)
-  //         return reply.status(404).send({
-  //           success: false,
-  //           message: "Event not found",
-  //         });
-
-  //       const oldEventData = oldEvent[0];
-
-  //       const existingEvent = await db
-  //         .select()
-  //         .from(event)
-  //         .where(
-  //           and(
-  //             and(
-  //               eq(event.date, date || oldEventData.date),
-  //               and(
-  //                 or(
-  //                   and(
-  //                     gte(event.startTime, startTime || oldEventData.startTime),
-  //                     lt(event.startTime, endTime || oldEventData.endTime)
-  //                   ),
-  //                   and(
-  //                     gt(event.endTime, startTime || oldEventData.startTime),
-  //                     lte(event.endTime, endTime || oldEventData.endTime)
-  //                   ),
-  //                   and(
-  //                     lte(event.startTime, startTime || oldEventData.startTime),
-  //                     gte(event.endTime, endTime || oldEventData.endTime)
-  //                   )
-  //                 )
-  //               )
-  //             ),
-  //             ne(event.id, id) // Exclude the current event being updated
-  //           )
-  //         );
-
-  //       if (existingEvent.length > 0)
-  //         return reply.status(400).send({
-  //           success: false,
-  //           message: "An event already exists at the specified date and time",
-  //         });
-
-  //       const updatedEvent = await db
-  //         .update(event)
-  //         .set({
-  //           title,
-  //           description,
-  //           date,
-  //           startTime,
-  //           endTime,
-  //         })
-  //         .where(and(eq(event.id, id), eq(event.authorId, request.user.id)))
-  //         .returning();
-
-  //       return reply.status(200).send({
-  //         success: true,
-  //         message: "Event updated successfully",
-  //         event: updatedEvent,
-  //       });
-  //     } catch (error) {
-  //       return reply.status(500).send({
-  //         success: false,
-  //         message: "Failed to update event",
-  //       });
-  //     }
-  //   }
-  // );
-
   fastify.delete<{
-    Params: { id: string };
+    Params: DeleteEventInput;
   }>(
-    "/delete/:id",
+    "/instance/:id",
     {
       schema: {
         params: $ref("deleteEventSchema"),
@@ -473,6 +390,34 @@ const eventRoutes: FastifyPluginAsync = async (fastify) => {
       }
     }
   );
+
+  fastify.delete<{
+    Params: DeleteEventInput;
+  }>("/recurring/:id", async (request, reply) => {
+    const { id } = request.params;
+
+    // Delete all instances
+    await db
+      .delete(event)
+      .where(
+        and(eq(event.recurringEventId, id), eq(event.authorId, request.user.id))
+      );
+
+    // Delete the parent recurring event
+    await db
+      .delete(recurringEvent)
+      .where(
+        and(
+          eq(recurringEvent.id, id),
+          eq(recurringEvent.authorId, request.user.id)
+        )
+      );
+
+    return reply.status(200).send({
+      success: true,
+      message: "Recurring event and its instances deleted successfully",
+    });
+  });
 };
 
 export default eventRoutes;
