@@ -1,23 +1,40 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
-This project was bootstrapped with Fastify-CLI.
+# Event Scheduling System
 
-## Available Scripts
+This repository contains a simple event scheduling system implemented in Fastify framework. The system allows users to create, view, and manage events with specific dates and times.
 
-In the project directory, you can run:
+## Features (In Progress)
 
-### `npm run dev`
+- [x] CRUD operations for events
+- [ ] User authentication and authorization
+- [ ] Event reminders and notifications
+- [ ] API documentation with Swagger
 
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-### `npm start`
+### Prerequisites
 
-For production mode
+- Node.js (v14 or higher)
+- pnpm package manager
 
-### `npm run test`
+### Installation
 
-Run the test cases.
+1. Clone the repository:
+   ```bash
+   git clone <repository-ur>
+   ```
+2. Navigate to the project directory:
 
-## Learn More
+   ```bash
+    cd event-scheduling-system
+   ```
 
-To learn Fastify, check out the [Fastify documentation](https://fastify.dev/docs/latest/).
+3. Install dependencies using pnpm:
+
+   ```bash
+   pnpm install
+   ```
+
+4. Start the development server:
+   ```bash
+   pnpm dev
+   ```
