@@ -21,6 +21,8 @@
   "dependencies": {
     "@fastify/autoload": "^6.0.0",
     "@fastify/sensible": "^6.0.0",
+    "@fastify/swagger": "^9.5.2",
+    "@fastify/swagger-ui": "^5.2.3",
     "argon2": "^0.44.0",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.6",
@@ -30,6 +32,7 @@
     "fastify-zod": "^1.4.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
+    "redis": "^5.8.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {

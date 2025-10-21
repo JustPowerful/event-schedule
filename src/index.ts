@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyServerOptions, fastify } from "fastify";
-
+import "dotenv/config";
 type Fastify = typeof fastify;
 declare module "fastify" {
   interface FastifyRequest {
@@ -34,8 +34,8 @@ async function createServerApp(fastify: Fastify, opts: FastifyServerOptions) {
 const app = await createServerApp(fastify, {});
 registerSchemas(app);
 
-const port = process.env.SERVER_PORT || 8000;
-const host = process.env.SERVER_HOST || "localhost";
+const port = process.env.PORT || 8000;
+const host = "localhost";
 
 app.listen({ host, port: Number(port) }, (err) => {
   console.log(`Server listening at http://${host}:${port}`);

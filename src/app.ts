@@ -3,6 +3,8 @@ import AutoLoad, { AutoloadPluginOptions } from "@fastify/autoload";
 import { FastifyPluginAsync, FastifyServerOptions } from "fastify";
 import { fileURLToPath } from "node:url";
 
+import "dotenv/config";
+
 export interface AppOptions
   extends FastifyServerOptions,
     Partial<AutoloadPluginOptions> {}
@@ -16,8 +18,52 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
   opts
 ): Promise<void> => {
-  // Place here your custom code!
+  await fastify.register(import("@fastify/swagger"), {
+    openapi: {
+      openapi: "3.0.0",
+      info: {
+        title: "Event Scheduler API",
+        description: "API documentation for the Event Scheduler application",
+        version: "1.0.0",
+      },
+      servers: [
+        {
+          url: `http://localhost:${process.env.PORT || 3000}`,
+          description: "Development Server",
+        },
+      ],
+      // tags: [
+      //   { name: "user", description: "User related end-points" },
+      //   { name: "code", description: "Code related end-points" },
+      // ],
+      // components: {
+      //   securitySchemes: {
+      //     apiKey: {
+      //       type: "apiKey",
+      //       name: "apiKey",
+      //       in: "header",
+      //     },
+      //   },
+      // },
+      externalDocs: {
+        url: "https://swagger.io",
+        description: "Find more info here",
+      },
+    },
+  });
 
+  fastify.register(import("@fastify/swagger-ui"), {
+    routePrefix: "/docs",
+    uiConfig: {
+      docExpansion: "full",
+      deepLinking: false,
+    },
+  });
+
+  // Place here your custom code!
+  fastify.setErrorHandler(function (error, request, reply) {
+    console.error(error);
+  });
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
