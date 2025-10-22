@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import * as assert from "node:assert";
 
-import { build } from "../helper.js";
-import { db } from "../../src/db/index.js";
+import { build } from "../helper";
+import { db } from "../../src/db";
 
 test("healthcheck reports healthy database state", async (t) => {
   const app = await build(t);

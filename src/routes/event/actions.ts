@@ -9,7 +9,7 @@ import {
   UpdateEventInput,
   UpdateRecurringEventInput,
 } from "@/schemas/event";
-import { db } from "@/db";
+import { db } from "@/db/index";
 import { and, asc, count, eq, gt, gte, lt, lte, ne, or } from "drizzle-orm";
 import { authMiddleware } from "@/middleware/auth.middleware";
 

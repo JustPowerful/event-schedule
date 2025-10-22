@@ -2,7 +2,7 @@ import { FastifyPluginAsync } from "fastify";
 import argon2 from "argon2";
 
 import { users } from "@/db/schema";
-import { db } from "@/db";
+import { db } from "@/db/index";
 import {
   $ref,
   CreateUserInput,

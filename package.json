@@ -8,9 +8,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npm run build:ts && tsc -p test/tsconfig.json && c8 node --test -r ts-node/register \"test/**/*.ts\"",
-    "start": "npm run build:ts && fastify start -l info dist/app.js",
-    "build:ts": "tsc",
+    "test": "tsc -p test/tsconfig.json && c8 node --test -r ts-node/register \"test/**/*.ts\"",
+    "start": "fastify start -l info dist/app.js",
+    "build": "tsup",
+    "build:ts": "tsc --noEmit",
     "watch:ts": "tsc -w",
     "dev": "tsx watch ./src/index.ts",
     "lint": "eslint . --ext .ts"
@@ -45,6 +46,8 @@
     "eslint": "^9.38.0",
     "fastify-tsconfig": "^3.0.0",
     "ts-node": "^10.4.0",
+    "tsc-alias": "^1.8.16",
+    "tsup": "^8.5.0",
     "tsx": "^4.20.6",
     "typescript": "~5.8.2"
   }
