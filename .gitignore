@@ -67,3 +67,4 @@ dist
 
 # Environment variables
 .env
+.env.docker

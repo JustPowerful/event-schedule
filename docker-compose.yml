@@ -9,7 +9,17 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - postgres_event_scheduler
+      - event_scheduler_network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USERNAME} -d ${POSTGRES_DB} -h localhost",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
 
   redis:
     image: redis:alpine3.22
@@ -18,6 +28,23 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - postgres_event_scheduler
+      - event_scheduler_network
+
+  app:
+    build:
+      context: .
+    image: scheduler:prod
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file:
+      - .env.docker
+    ports:
+      - "3000:3000"
+    networks:
+      - event_scheduler_network
+
 networks:
-  postgres_event_scheduler:
+  event_scheduler_network:

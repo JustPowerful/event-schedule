@@ -5,9 +5,8 @@ This repository contains a simple event scheduling system implemented in Fastify
 ## Features (In Progress)
 
 - [x] CRUD operations for events
-- [ ] User authentication and authorization
-- [ ] Event reminders and notifications
-- [ ] API documentation with Swagger
+- [x] User authentication and authorization
+- [x] API documentation with Swagger
 
 ## Getting Started
 
@@ -16,7 +15,7 @@ This repository contains a simple event scheduling system implemented in Fastify
 - Node.js (v14 or higher)
 - pnpm package manager
 
-### Installation
+### Development Setup
 
 1. Clone the repository:
    ```bash
@@ -37,4 +36,19 @@ This repository contains a simple event scheduling system implemented in Fastify
 4. Start the development server:
    ```bash
    pnpm dev
+   ```
+
+## Deployment with Docker
+
+1. Create a `.env.docker` file in the root directory and configure the necessary environment variables (you can find an example in `.env.example`).
+
+2. Build and run the Docker containers using Docker Compose:
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. To view the logs of the application, use:
+   ```bash
+   docker compose logs -f app
    ```
